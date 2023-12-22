@@ -1,13 +1,12 @@
-from django.shortcuts import render
-from .models import Instituciones, Inscritos
-from .forms import FormInstituciones, FormInscritos
-from django.http import JsonResponse
-from .serializers import InstitucionesSerializer, InscritosSerializer
+from django.shortcuts import render,redirect
+from .models import Inscritos,Instituciones
+from .forms import FormInscritos,FormInstituciones
+from .serializers import InscritosSerializer,InstitucionesSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
-from django.http import Http404
+from django.http import Http404,JsonResponse
 
 # Create your views here.
 
@@ -19,7 +18,7 @@ def agregarInstituciones(request):
 
     if (request.method == 'POST'):
         form = FormInstituciones(request.POST)
-        if (form.is_valid()):
+        if form.is_valid():
             form.save()
         return index(request)
 
@@ -29,14 +28,15 @@ def agregarInstituciones(request):
 def agregarInscritos(request):
     form = FormInscritos()
 
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         form = FormInscritos(request.POST)
-        if (form.is_valid()):
+        if form.is_valid():
             form.save()
         return index(request)
 
     data = {'form' : form}
     return render(request, 'agregar.html', data)
+
 
 def perfil(request):
     per = {
@@ -89,20 +89,21 @@ def InstitucionesDetalle(request,id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ListarInscritos(APIView):
+class ListarInscritos_class(APIView):
     def get(self, request):
         inscritos = Inscritos.objects.all()
         serial = InscritosSerializer(inscritos, many=True)
         return Response(serial.data)
 
     def post(self, request):
-        serial = InscritosSerializer(data=request.data)
+        serial = InscritosSerializer(data= request.data)
         if serial.is_valid():
             serial.save()
-            return Response(serial.data, status=status.HTTP_201_CREATED)
-        return Response(serial.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serial.data,status=status.HTTP_201_CREATED)
+        return Response(serial.errors,status=status.HTTP_400_BAD_REQUEST)
 
-class InscritosDetalle(APIView):
+class InscritosDetalle_class(APIView
+                             ):
     def get_object(self, id):
         try:
             return Inscritos.objects.get(pk=id)
@@ -116,7 +117,7 @@ class InscritosDetalle(APIView):
 
     def put(self, request, id):
         inscrito = self.get_object(id)
-        serial = InscritosSerializer(inscrito, data=request.data)
+        serial = InscritosSerializer(inscrito,data=request.data)
         if serial.is_valid():
             serial.save()
             return Response(serial.data)

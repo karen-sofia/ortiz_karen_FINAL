@@ -4,10 +4,10 @@ from .models import Instituciones, Inscritos
 class FormInstituciones(forms.ModelForm):
     class Meta:
         model = Instituciones
-        fields = '__all__'
+        fields = ['id', 'nombre']
 
 class FormInscritos(forms.ModelForm):
     class Meta:
         model = Inscritos
-        fields = '__all__'
+        fields = ['id', 'nombre', 'telefono', 'fechaInscripcion', 'institucion', 'estado', 'observacion']
 

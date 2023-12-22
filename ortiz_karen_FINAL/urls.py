@@ -28,7 +28,7 @@ urlpatterns = [
     path('list_instituciones/', views.listarInstituciones),
      path('list_instituciones/<int:id>',views.InstitucionesDetalle),
 
-    path('list_inscritos/', views.listarInscritos.as_view()),
-    path('list_inscritos/<int:id>',views.InscritosDetalle.as_view()),
+    path('list_inscritos/', views.ListarInscritos_class.as_view()),
+    path('list_inscritos/<int:id>',views.InscritosDetalle_class.as_view()),
 
 ]
