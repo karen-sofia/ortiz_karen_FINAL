@@ -24,8 +24,11 @@ urlpatterns = [
     path('perfil/', views.perfil),
     path('form_instituciones/', views.agregarInstituciones),
     path('form_inscritos/', views.agregarInscritos),
-    path('list_instituciones/', views.listarInstituciones),
-    path('list_inscritos/', views.listarInscritos),
 
+    path('list_instituciones/', views.listarInstituciones),
+     path('institucionDetalle/<int:id>',views.InstitucionesDetalle),
+
+    path('list_inscritos/', views.listarInscritos.as_view()),
+    path('inscritosDetalle/<int:id>',views.InscritosDetalle.as_view()),
 
 ]
