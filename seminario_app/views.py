@@ -102,8 +102,7 @@ class ListarInscritos_class(APIView):
             return Response(serial.data,status=status.HTTP_201_CREATED)
         return Response(serial.errors,status=status.HTTP_400_BAD_REQUEST)
 
-class InscritosDetalle_class(APIView
-                             ):
+class InscritosDetalle_class(APIView):
     def get_object(self, id):
         try:
             return Inscritos.objects.get(pk=id)
