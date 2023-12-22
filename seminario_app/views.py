@@ -89,19 +89,19 @@ def InstitucionesDetalle(request,id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class listarInscritos(APIView):
+class ListarInscritos(APIView):
     def get(self, request):
-        inscrito =Inscritos.objects.all()
-        serial = InscritosSerializer(inscrito,many=True)
+        inscritos = Inscritos.objects.all()
+        serial = InscritosSerializer(inscritos, many=True)
         return Response(serial.data)
-    
-    def post(self,request):
-        serial = InscritosSerializer(data= request.data)
+
+    def post(self, request):
+        serial = InscritosSerializer(data=request.data)
         if serial.is_valid():
             serial.save()
-            return Response(serial.data,status = status.HTTP_201_CREATED)
-        return Response(serial.errors,status = status.HTTP_400_BAD_REQUEST)
-    
+            return Response(serial.data, status=status.HTTP_201_CREATED)
+        return Response(serial.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class InscritosDetalle(APIView):
     def get_object(self, id):
         try:
@@ -109,25 +109,23 @@ class InscritosDetalle(APIView):
         except Inscritos.DoesNotExist:
             raise Http404()
 
-    
-    def get(self,request,id):
+    def get(self, request, id):
         inscrito = self.get_object(id)
         serial = InscritosSerializer(inscrito)
         return Response(serial.data)
-    
-    def put (self,request,id):
-        inscrito= self.get_object(id)
-        serial = InscritosSerializer(inscrito,data=request.data)
+
+    def put(self, request, id):
+        inscrito = self.get_object(id)
+        serial = InscritosSerializer(inscrito, data=request.data)
         if serial.is_valid():
             serial.save()
             return Response(serial.data)
         return Response(serial.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def delete(self, request, id):
         inscrito = self.get_object(id)
         inscrito.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 
 
