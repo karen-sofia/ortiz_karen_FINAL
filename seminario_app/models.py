@@ -10,13 +10,14 @@ class Instituciones(models.Model):
         return str(self.nombre)
 
 class Inscritos(models.Model):
-    ESTADO=[('RESERVADO', 'Reservado'), ('COMPLETADA', 'Completada'), ('ANULADA', 'Anulada'), ('NO ASISTEN', 'No Asisten')]
+    
+
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     telefono = models.IntegerField()
     fechaInscripcion = models.DateField()
     institucion = models.ForeignKey(Instituciones, on_delete=models.PROTECT)
     horaInscripcion = models.TimeField(auto_now_add=True)
-    estado = models.CharField(max_length=20, choices=ESTADO)
+    estado = models.CharField(max_length=20, choices=[('RESERVADO', 'Reservado'), ('COMPLETADA', 'Completada'), ('ANULADA', 'Anulada'), ('NO ASISTEN', 'No Asisten')])
     observacion = models.CharField(max_length=500)
 
