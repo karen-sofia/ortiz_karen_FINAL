@@ -96,7 +96,7 @@ class ListarInscritos_class(APIView):
         return Response(serial.data)
 
     def post(self, request):
-        serial = InscritosSerializer(data= request.data)
+        serial = InscritosSerializer(data=request.data)
         if serial.is_valid():
             serial.save()
             return Response(serial.data,status=status.HTTP_201_CREATED)
@@ -105,7 +105,7 @@ class ListarInscritos_class(APIView):
 class InscritosDetalle_class(APIView):
     def get_object(self, id):
         try:
-            return Inscritos.objects.get(pk=id)
+            return Inscritos.objects.get(id=id)
         except Inscritos.DoesNotExist:
             raise Http404()
 
